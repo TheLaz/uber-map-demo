@@ -1,0 +1,405 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Uber like map</title>
+        <script src="http://maps.googleapis.com/maps/api/js"></script>
+		<style>
+			html, body {
+				margin: 0;
+				padding: 0;
+				height: 100%;
+				width: 100%
+			}
+      body {
+        background-color: #353533;
+      }
+			#map {
+				width: 350px;
+        height: 350px;
+        margin: 10% auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="map"></div>
+		
+		<script>
+			function setMap () {
+                var mapProp = {
+                    zoom: 17,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    scrollwheel: false,
+                    navigationControl: false,
+                    mapTypeControl: false,
+                    scaleControl: false,
+                    draggable: false,
+                    disableDefaultUI: true,
+                    styles: [
+                              {
+                                "elementType": "geometry",
+                                "stylers": [
+                                  {
+                                    "color": "#212121"
+                                  }
+                                ]
+                              },
+                              {
+                                "elementType": "labels.icon",
+                                "stylers": [
+                                  {
+                                    "visibility": "on"
+                                  }
+                                ]
+                              },
+                              {
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                  {
+                                    "color": "#757575"
+                                  }
+                                ]
+                              },
+                              {
+                                "elementType": "labels.text.stroke",
+                                "stylers": [
+                                  {
+                                    "color": "#212121"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "administrative",
+                                "elementType": "geometry",
+                                "stylers": [
+                                  {
+                                    "color": "#757575"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "administrative.country",
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                  {
+                                    "color": "#9e9e9e"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "administrative.land_parcel",
+                                "stylers": [
+                                  {
+                                    "visibility": "on"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "administrative.locality",
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                  {
+                                    "color": "#bdbdbd"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "administrative.neighborhood",
+                                "stylers": [
+                                  {
+                                    "visibility": "on"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "poi",
+                                "elementType": "labels.text",
+                                "stylers": [
+                                  {
+                                    "visibility": "on"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "poi",
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                  {
+                                    "color": "#757575"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "poi.park",
+                                "elementType": "geometry",
+                                "stylers": [
+                                  {
+                                    "color": "#181818"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "poi.park",
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                  {
+                                    "color": "#616161"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "poi.park",
+                                "elementType": "labels.text.stroke",
+                                "stylers": [
+                                  {
+                                    "color": "#1b1b1b"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "road",
+                                "elementType": "geometry.fill",
+                                "stylers": [
+                                  {
+                                    "color": "#2c2c2c"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "road",
+                                "elementType": "labels",
+                                "stylers": [
+                                  {
+                                    "visibility": "off"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "road",
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                  {
+                                    "color": "#8a8a8a"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "road.arterial",
+                                "elementType": "geometry",
+                                "stylers": [
+                                  {
+                                    "color": "#373737"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "road.highway",
+                                "elementType": "geometry",
+                                "stylers": [
+                                  {
+                                    "color": "#3c3c3c"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "road.highway.controlled_access",
+                                "elementType": "geometry",
+                                "stylers": [
+                                  {
+                                    "color": "#4e4e4e"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "road.local",
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                  {
+                                    "color": "#616161"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "transit",
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                  {
+                                    "color": "#757575"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "water",
+                                "elementType": "geometry",
+                                "stylers": [
+                                  {
+                                    "color": "#000000"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "water",
+                                "elementType": "labels.text",
+                                "stylers": [
+                                  {
+                                    "visibility": "off"
+                                  }
+                                ]
+                              },
+                              {
+                                "featureType": "water",
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                  {
+                                    "color": "#3d3d3d"
+                                  }
+                                ]
+                              }
+                            ]
+                };
+
+                /**
+                    Map
+                */            
+                var map = new google.maps.Map(document.getElementById("map"), mapProp);
+
+                /**
+                    Route Services
+                */
+                var directionsService = new google.maps.DirectionsService;
+                var directionsDisplay = new google.maps.DirectionsRenderer;
+                directionsDisplay.setMap(map);
+                
+
+                /**
+                    Person who called an Uber
+                */
+
+                 var personIcon = {
+                  path: 'M -4,-4 12,-4 12,12 -4,12 z',
+                  scale: 1,
+                  strokeColor: '#235A85',
+                  fillColor: '#1C67A1',
+                  fillOpacity: 1,
+                };
+
+                var personMarker = new google.maps.Marker({
+                    position: new google.maps.LatLng(55.711620, 12.562812),
+                    icon: personIcon,
+                    map: map
+                });
+
+                map.setCenter(personMarker.position);
+               
+                /**
+                  Uber Drivers
+                */
+
+                var drivers = [
+                  new google.maps.LatLng(55.711149, 12.565356),
+                  new google.maps.LatLng(55.710463, 12.563618),
+                  new google.maps.LatLng(55.711826, 12.566184),
+                  new google.maps.LatLng(55.712135, 12.565368),
+                  new google.maps.LatLng(55.712629, 12.560613),
+                  new google.maps.LatLng(55.713193, 12.563620),
+                  new google.maps.LatLng(55.710922, 12.558999),
+                  new google.maps.LatLng(55.712862, 12.565553)
+                ];
+                
+                /**
+                  Only one preset route
+                */
+
+                var lineSymbol = {
+                  path: 'M 0, -0.5 0 , 0.5',
+                  scale: 2,
+                  strokeColor: '#FEFEFE',
+                  strokeOpacity: 0,
+                };
+
+                var driverRoutePolylineSettings = {
+                    path: [],
+                    strokeWeight: 0,
+                    icons: [{
+                      icon: lineSymbol
+                    }]
+                };
+
+                /**
+                  Animate Driver's Path
+                */
+                function animateDriverPath (driverPath) {
+                  var count = 0;
+                  
+                  function draw () {
+                    count = (count + 1) % 200;
+
+                    var icons = driverPath.get('icons');
+                    
+                    var previousIcon = icons[icons.length - 1];
+
+                    var nextIcon = Object.assign({}, previousIcon);
+                    nextIcon.offset = (count / 2) + '%';
+                    nextIcon.icon.strokeOpacity = (count / 10) / 100 ;
+
+                    icons.push(nextIcon);
+                    
+                    if ( (count / 2) === 99.5) {
+                        count = 0;
+                        
+                       setTimeout(() => {
+                          icons = [icons[0]];
+                          driverPath.set('icons', icons);
+                          window.requestAnimationFrame(draw);
+                      }, 1000);
+
+                    } else {
+                      window.requestAnimationFrame(draw);
+                      driverPath.set('icons', icons);
+                    }
+                  };
+
+                  draw();
+                }
+
+                /**
+                  Mark route
+                */
+
+                function addDriverRouteToMap (driverPosition) {
+                  directionsService.route({
+                      origin: driverPosition,
+                      destination: personMarker.position,
+                      travelMode: 'DRIVING'
+                    }, function (response, status) {
+                    if (status === 'OK') {
+                      var legs = response.routes[0].legs.map((leg) => leg.steps)[0];
+                      var paths = legs.map((step) => step.path);
+
+                      var driverRoute = new google.maps.Polyline(driverRoutePolylineSettings);
+
+                      paths.forEach((path) => {
+                        path.forEach((point) => {
+                          driverRoute.getPath().push(point);
+                        });                            
+                      });
+
+                      driverRoute.setMap(map);
+                      animateDriverPath(driverRoute);
+                    }
+                  }); 
+                }
+
+                /**
+                  Show Drivers
+                */
+
+                drivers.forEach((driver) => {
+                  addDriverRouteToMap(driver);
+                });  
+            };
+
+            google.maps.event.addDomListener(window, 'load', setMap);
+		</script>
+	</body>
+</html>
